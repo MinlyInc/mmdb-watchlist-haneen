@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { add, markWatched, remove, stats, unwatched } from "./watchlist.ts";
+import { add, markWatched, remove, stats, unwatched,clearWatched } from "./watchlist.ts";
 import type { WatchlistItem } from "./types.ts";
-
 function film(overrides: Partial<WatchlistItem> = {}): WatchlistItem {
   return {
     id: 1,
@@ -93,3 +92,20 @@ describe("stats", () => {
     expect(stats(list).averageRating).toBeCloseTo(4.67);
   });
 });
+describe("clearWatched",()=> {
+  it("removes all watched films from the list",()=>{
+    const list =[
+      film({id:1,watched:true}),
+      film({id:2,watched:false}),
+      film({id:3,watched:true}),
+    ];
+    const result=clearWatched(list);
+    expect(result).toHaveLength(1);
+    expect(result[0]?.id).toBe(2);
+  });
+  it("returns the same list items if no films are watched", ()=> {
+    const list = [film({id: 1, watched: false})];
+    expect(clearWatched(list)).toEqual(list);
+  });
+
+})
