@@ -23,8 +23,7 @@ export function markWatched(list: WatchlistItem[], id: number): WatchlistItem[] 
 
 /** The films still to watch, best rated first. */
 export function unwatched(list: WatchlistItem[]): WatchlistItem[] {
-  return list
-    .filter((item) => !item.watched)
+  return list.filter((item) => !item.watched);
 }
 
 /** Summarises a watchlist: how much is on it, how long it would take, how good it is. */
@@ -34,15 +33,15 @@ export function stats(data: WatchlistItem[]): WatchlistStats {
   let ratedCount = 0;
 
   for (const item of data) {
-    if (typeof item.runtimeMinutes === "number"){
-      runtime+= item.runtimeMinutes;
+    if (typeof item.runtimeMinutes === "number") {
+      runtime += item.runtimeMinutes;
     }
-    if (typeof item.rating === "number"){
+    if (typeof item.rating === "number") {
       ratingSum += item.rating;
-      ratedCount ++;
+      ratedCount++;
     }
   }
-  const averageRating = ratedCount>0? ratingSum/ratedCount:0;
+  const averageRating = ratedCount > 0 ? ratingSum / ratedCount : 0;
 
   return {
     total: data.length,
@@ -53,6 +52,6 @@ export function stats(data: WatchlistItem[]): WatchlistStats {
   };
 }
 /** Removes all watched films from the list */
-export function clearWatched (list: WatchlistItem[]): WatchlistItem[]{
-  return list.filter((item)=> !item.watched);
+export function clearWatched(list: WatchlistItem[]): WatchlistItem[] {
+  return list.filter((item) => !item.watched);
 }
